@@ -1,3 +1,5 @@
+Taylor Olson
+
 # FIFA Challenge - JavaScript-Foundations
 
 ## Advanced JavaScript

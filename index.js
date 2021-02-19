@@ -5,15 +5,33 @@ import { fifaData } from './fifa.js';
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 1: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
 Practice accessing data by console.log-ing the following pieces of data note, you may want to filter the data first 😉*/
 
+
+
 //(a) Home Team name for 2014 world cup final
 
-//(b) Away Team name for 2014 world cup final
+let worldCupHomeTeam = fifaData.filter(game => game.Year == 2014 && game.Stage.toLowerCase() == "final");
+console.log(worldCupHomeTeam);
+worldCupHomeTeam = worldCupHomeTeam[0];
+console.log(worldCupHomeTeam["Home Team Name"]);
 
+//(b) Away Team name for 2014 world cup final
+let worldCupAwayTeam = fifaData.filter(game => game.Year == 2014 && game.Stage.toLowerCase() == "final");
+worldCupAwayTeam = worldCupAwayTeam[0];
+console.log(worldCupAwayTeam["Away Team Name"]);
 //(c) Home Team goals for 2014 world cup final
+let homeTeamGoals = fifaData.filter(game => game.Year == 2014 && game.Stage.toLowerCase() == "final");
+homeTeamGoals = homeTeamGoals[0];
+console.log(homeTeamGoals["Home Team Goals"]);
 
 //(d) Away Team goals for 2014 world cup final
+let awayTeamGoals = fifaData.filter(game => game.Year == 2014 && game.Stage.toLowerCase() == "final");
+awayTeamGoals = awayTeamGoals[0];
+console.log(awayTeamGoals["Away Team Goals"]);
 
 //(e) Winner of 2014 world cup final */
+let winnerWorldCup = fifaData.filter(game => game.Year == 2014 && game.Stage.toLowerCase() == "final");
+winnerWorldCup = winnerWorldCup[0];
+console.log(winnerWorldCup["Win conditions"]);
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 2: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 

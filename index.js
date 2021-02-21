@@ -5,15 +5,33 @@ import { fifaData } from './fifa.js';
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 1: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
 Practice accessing data by console.log-ing the following pieces of data note, you may want to filter the data first 😉*/
 
+
+
 //(a) Home Team name for 2014 world cup final
 
-//(b) Away Team name for 2014 world cup final
+let worldCupHomeTeam = fifaData.filter(game => game.Year == 2014 && game.Stage.toLowerCase() == "final");
+console.log(worldCupHomeTeam);
+worldCupHomeTeam = worldCupHomeTeam[0];
+console.log(worldCupHomeTeam["Home Team Name"]);
 
+//(b) Away Team name for 2014 world cup final
+let worldCupAwayTeam = fifaData.filter(game => game.Year == 2014 && game.Stage.toLowerCase() == "final");
+worldCupAwayTeam = worldCupAwayTeam[0];
+console.log(worldCupAwayTeam["Away Team Name"]);
 //(c) Home Team goals for 2014 world cup final
+let homeTeamGoals = fifaData.filter(game => game.Year == 2014 && game.Stage.toLowerCase() == "final");
+homeTeamGoals = homeTeamGoals[0];
+console.log(homeTeamGoals["Home Team Goals"]);
 
 //(d) Away Team goals for 2014 world cup final
+let awayTeamGoals = fifaData.filter(game => game.Year == 2014 && game.Stage.toLowerCase() == "final");
+awayTeamGoals = awayTeamGoals[0];
+console.log(awayTeamGoals["Away Team Goals"]);
 
 //(e) Winner of 2014 world cup final */
+let winnerWorldCup = fifaData.filter(game => game.Year == 2014 && game.Stage.toLowerCase() == "final");
+winnerWorldCup = winnerWorldCup[0];
+console.log(winnerWorldCup["Win conditions"]);
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 2: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 
@@ -24,10 +42,12 @@ Use getFinals to do the following:
 hint - you should be looking at the stage key inside of the objects
 */
 
-function getFinals(/* code here */) {
-   /* code here */
-}
+function getFinals(data) {
+    let finalStage = data.filter(game => game.Stage.toLowerCase() == "final");
+    return finalStage;
+};
 
+console.log(getFinals(fifaData));
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 3: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
@@ -36,9 +56,16 @@ Use the higher-order function called getYears to do the following:
 2. Receive a callback function getFinals from task 2 
 3. Return an array called years containing all of the years in the getFinals data set*/
 
-function getYears(/* code here */) {
-    /* code here */
-}
+function getYears(arr, cb) {
+    let finals = cb(arr)
+    let years = [];
+    for (let i = 0; i < finals.length; i++) {
+        years.push(finals[i].Year)
+    }
+    return years;
+};
+
+console.log(getYears(fifaData, getFinals));
 
 
 
@@ -49,9 +76,20 @@ Use the higher-order function getWinners to do the following:
 3. Determines the winner (home or away) of each `finals` game. 
 4. Returns the names of all winning countries in an array called `winners` */ 
 
-function getWinners(/* code here */) {
-    /* code here */
-}
+function getWinners(arr, cb) {
+    let finals = cb(arr);
+    let winners = [];
+    for (let i = 0; i < finals.length; i++) {
+        if (finals[i]["Home Team Goals"] > finals[i]["Away Team Goals"]) {
+            winners.push(finals[i]["Home Team Name"])
+        } else {
+            winners.push(finals[i]["Away Team Name"])
+        }
+    };
+    return winners;
+};
+
+console.log(getWinners(fifaData, getFinals));
 
 
 
@@ -65,9 +103,18 @@ Use the higher-order function getWinnersByYear to do the following:
 hint: the strings returned need to exactly match the string in step 4.
  */
 
-function getWinnersByYear(/* code here */) {
-    /* code here */
-}
+function getWinnersByYear(arr, cb1, cb2) {
+    let finals = getFinals(arr);
+    let years = cb1(arr, getFinals);
+    let winners = cb2(arr, getFinals);
+    let headlines = [];
+    for (let i = 0; i < finals.length; i++) {
+        headlines.push(`In ${years[i]}, ${winners[i]} won the world cup!`)
+    }
+    return headlines;
+};
+
+console.log(getWinnersByYear(fifaData, getYears, getWinners));
 
 
 
@@ -81,9 +128,22 @@ Use the higher order function getAverageGoals to do the following:
  Example of invocation: getAverageGoals(getFinals(fifaData));
 */
 
-function getAverageGoals(/* code here */) {
-   /* code here */
-}
+function getAverageGoals(data) {
+    const homeGoals = data.reduce(function(accumulator, currentValue) {
+        return (accumulator += currentValue["Home Team Goals"])
+    }, 0);
+    const awayGoals = data.reduce(function(accumulator, currentValue) {
+        return (accumulator += currentValue["Away Team Goals"])
+    }, 0);
+    
+    let average = ((homeGoals+awayGoals)/(data.length));
+    average = average.toFixed(2);
+    return average;
+};
+
+
+
+console.log(getAverageGoals(getFinals(fifaData)));
 
 
 
